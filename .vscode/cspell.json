@@ -1,0 +1,16 @@
+// cSpell Settings
+{
+    // ignoreWords - list of words that should be ignored
+    "ignoreWords": [
+        "IFERROR",
+        "ISERROR",
+        "ISNUMBER",
+        "Userform"
+    ],
+    // words - list of words to be always considered correct
+    "words": [
+        "Guindon",
+        "Mathieu",
+        "modeless"
+    ]
+}
