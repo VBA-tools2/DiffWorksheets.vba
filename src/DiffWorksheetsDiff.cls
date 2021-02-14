@@ -207,7 +207,7 @@ Private Function GetFormulaStringWithoutPrecisionChoice( _
             Chr$(10) & _
             "N(ERROR.TYPE(" & rng1Address & ")<>ERROR.TYPE(" & rng2Address & "))," & _
             Chr$(10) & _
-                "IFERROR(N(" & rng1Address & "<>" & rng2Address & "),1))"
+                "IFERROR(N(NOT(EXACT(" & rng1Address & "," & rng2Address & "))),1))"
     
 End Function
 
@@ -240,7 +240,7 @@ Private Function GetFormulaStringWithPrecisionChoice( _
             Chr$(10) & Space(4) & _
             "ROUND(" & rng1Address & "," & DefinedNameOfRoundPrecision & "-INT(IFERROR(LOG10(ABS(" & rng2Address & ")),0)))<>ROUND(" & rng2Address & "," & DefinedNameOfRoundPrecision & "-INT(IFERROR(LOG10(ABS(" & rng2Address & ")),0))))," & _
         Chr$(10) & _
-        "IFERROR(" & rng1Address & "<>" & rng2Address & ",1)))))"
+        "IFERROR(NOT(EXACT(" & rng1Address & "," & rng2Address & ")),1)))))"
     
 End Function
 
