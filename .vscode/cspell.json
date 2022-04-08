@@ -2,8 +2,10 @@
 {
     // ignoreWords - list of words that should be ignored
     "ignoreWords": [
+        "FORMULATEXT",
         "IFERROR",
         "ISERROR",
+        "ISFORMULA",
         "ISNUMBER",
         "Userform"
     ],

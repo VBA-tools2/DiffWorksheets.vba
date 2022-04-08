@@ -202,12 +202,20 @@ Private Function GetFormulaStringWithoutPrecisionChoice( _
     ByVal rng2Address As String _
         ) As String
     
+    'function description:
+    '- if both cells contain errors, compare them
+    '- elseif (at least) one cell contains a formula compare them
+    '- else compare the cells
     GetFormulaStringWithoutPrecisionChoice = _
         "=IF(AND(ISERROR(" & rng1Address & "),ISERROR(" & rng2Address & "))," & _
-            Chr$(10) & _
-            "N(ERROR.TYPE(" & rng1Address & ")<>ERROR.TYPE(" & rng2Address & "))," & _
-            Chr$(10) & _
-                "IFERROR(N(NOT(EXACT(" & rng1Address & "," & rng2Address & "))),1))"
+        Chr$(10) & _
+        "N(ERROR.TYPE(" & rng1Address & ")<>ERROR.TYPE(" & rng2Address & "))," & _
+        Chr$(10) & _
+        "IF(OR(ISFORMULA(" & rng1Address & "),ISFORMULA(" & rng2Address & "))," & _
+            Chr$(10) & Space(4) & _
+            "IFERROR(N(NOT(EXACT(FORMULATEXT(" & rng1Address & "),FORMULATEXT(" & rng2Address & ")))),1)," & _
+            Chr$(10) & Space(4) & _
+            "IFERROR(N(NOT(EXACT(" & rng1Address & "," & rng2Address & "))),1)))"
     
 End Function
 
