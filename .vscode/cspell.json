@@ -3,16 +3,23 @@
     // ignoreWords - list of words that should be ignored
     "ignoreWords": [
         "FORMULATEXT",
+        "ifdef",
         "IFERROR",
         "ISERROR",
         "ISFORMULA",
         "ISNUMBER",
-        "Userform"
+        "qanda",
+        "sourcedir",
+        "testdir",
+        "Userform",
+        "VBE"
     ],
     // words - list of words to be always considered correct
     "words": [
+        "guillemets",
         "Guindon",
         "Mathieu",
-        "modeless"
+        "modeless",
+        "rubberduck"
     ]
 }

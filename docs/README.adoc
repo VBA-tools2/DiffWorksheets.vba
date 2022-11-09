@@ -1,0 +1,162 @@
+
+= DiffWorksheets.vba
+:experimental:
+:icons:         // not sure if this is needed
+:sourcedir: ../src
+:testdir: ../tests
+:uri-VbaTools2-cFormOnTop: https://github.com/VBA-tools2/cFormOnTop.vba
+:uri-commit-messages: https://www.conventionalcommits.org
+:uri-ExcelRibbon-QAT: https://excelribbon.tips.net/T007849_Adding_a_Macro_to_the_Quick_Access_Toolbar.html
+:uri-GitHub-FirstContribution: https://github.com/firstcontributions/first-contributions
+:uri-license: https://choosealicense.com/licenses/mit/
+:uri-rubberduck: https://rubberduckvba.com/
+:uri-UnitTests: https://en.wikipedia.org/wiki/Unit_testing
+// show the corresponding icons on GitHub, because otherwise "just" the text will be shown
+ifdef::env-github[]
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :information_source:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+
+This is a very simple Excel VBA class to quickly and easily compare the content of two different worksheets.
+
+== Features
+
+By intention (up to this point) there are not much features to keep it really simple.
+Important is that only cell _content_ is compared. In detail it is checked for
+
+. error values
+. formulae (i.e. if both entered formulae are equal)
+. content (i.e. numbers or (case-sensitive) text/strings)
+
+in that particular order.
+
+That means, stuff like
+
+* cell formatting (font, color, number formatting, etc.)
+* comments to cells
+
+is _not_ compared/checked.
+
+Optionally you can also compare if numbers are "`approximately equal`".
+To do so please search for the function `+GetFormulaStringWithPrecisionChoice+` in the `+DiffWorksheetsDiff.cls+` class module (and its other occurrence).
+Please have a look at the corresponding comments.
+
+== Prerequisites / Dependencies
+
+Since this is an Excel VBA class you obviously need Microsoft Excel.
+
+In addition you need (the sources of)
+
+* {uri-VbaTools2-cFormOnTop}.
+
+[#how-to-install]
+== How to install / Getting started
+
+Add the file(s) from
+
+* the link:{sourcedir}[src] folder and
+* the link:{uri-VbaTools2-cFormOnTop}/src[cFormOnTop src] folder
+
+to your project.
+Yes, it's that simple.
+
+._If you need some more advice on how to do that, expand me._
+[%collapsible]
+====
+. Open Microsoft Excel.
+. Open the Visual Basic Editor (VBE) (kbd:[Alt+F11]).
+. Add the file(s) in the link:{sourcedir}[src] folder to your VBA project.
+** With {uri-rubberduck}[Rubberduck]:
+.. Right-click on the project to which you want to add the file(s) in the "`Code Explorer`" (to show it press kbd:[Ctrl+R]) and click on menu:Add[Existing Files...].
+.. Select all files in the link:{sourcedir}[src] folder and click on btn:[Open].
+** Without Rubberduck:
+.. Select all files in the link:{sourcedir}[src] folder in Windows File Explorer.
+.. Drag-and-drop them to the corresponding project in VBE's "`Project Explorer`". +
+   (To show it press kbd:[Ctrl+R].
+   Hit it twice if the Code Explorer shows up first.)
+. Add the file(s) from the link:{uri-VbaTools2-cFormOnTop}/src[cFormOnTop src folder] as well to the project.
+// BUG: "project name" can't be put in normal angle brackets, because the closing bracket would be interpreted as menu delimiter. I couldn't find a way how to "escape" that (i.e. a backslash didn't work). Thus, single guillemets are used.
+. Check, if there are obvious errors by compiling the project (menu:Debug[Compile ‹project name›]).
+. Save the file/project.
+.. Be sure that the file/project you want to save is "`active`" in the VBE by checking, if its name is shown in VBE's title bar. +
+   (If it's not, open a (class) module of the corresponding project (and close it again).)
+.. Press the "`Save`" button (the disc symbol similar to 💾) in VBE's toolbar.
+.. Check that the file (really) was saved by having a look at the "`last modified date`" of the (project) file in the Windows File Explorer.
+====
+
+For convenience you can add an icon to Quick Access Toolbar (QAT).
+Here an example link on how to do this: +
+{uri-ExcelRibbon-QAT}
+
+== Usage / Show it in action
+
+If you have added an icon to the QAT (see the last section) you simply need to press it.
+A small form shows up where normally the active sheet is preselected as the first worksheet.
+Activate the second worksheet the usual way and then press the btn:[Set second Worksheet].
+
+If there is no reason to prevent the comparison (e.g. you selected the same worksheet twice) a new worksheet with the name `+diff+` will be added in front of the first selected worksheet.
+All compared cells are marked with a gray background color.
+If cell content is different, it shows that with the number 1.
+
+To quickly count the number of different cells, select the "`used range`" by pressing kbd:[Ctrl+A] and have a look at the `+sum+` number in the statusbar (in the lower right corner of the Excel window).footnote:[
+If the sum isn't shown you maybe have disabled it.
+Right-click on the statusbar and click on the corresponding menu entry.]
+
+== Running Tests
+
+Unfortunately I don't know how to create automated tests/unit tests for this project.
+If you have an idea, I would love to see it!
+Please add an issue or – even better – a pull request (see the <<#contributing>> section).
+
+== Used By
+
+I don't think that this project can be of use inside of another project.
+But I would love to be proven wrong 🥰.
+
+== Known issues and limitations
+
+Hmm, one could list a lot of stuff here.
+As stated earlier, this is a _simple_ diff/comparison tool ...
+
+[#contributing]
+== Contributing
+
+All contributions are highly welcome!!
+
+If you are new to git/GitHub, please have a look at {uri-GitHub-FirstContribution} where you will find a lot of useful information for beginners.
+
+I recently was pointed to {uri-commit-messages} which sounds very promising.
+I will use them from now on too (and hopefully don't forget it in a hurry).
+
+== FAQ
+
+[qanda]
+What are the `+'@...+` comments good for in the code?::
+You should really have a look at the awesome {uri-rubberduck}[Rubberduck] project!
+
+== Similar Projects
+
+None that we are aware of.
+
+But if _you_ know some, please let me know.
+Maybe we can combine forces.
+
+If you need a professional tool for comparing Excel (worksheet) files, please have a look at the (unfortunately) non-free tools
+
+* https://www.xltrail.com/[xltrail]
+* https://support.microsoft.com/en-us/office/compare-two-versions-of-a-workbook-by-using-spreadsheet-compare-0e1627fd-ce14-4c33-9ab1-8ea82c6a5a7e[Spreadsheet Compare] +
+  (shipped with Microsoft Office Professional versions)
+
+Maybe also the following (non-free) tools are useful, but I haven't tested them.
+
+* https://www.scootersoftware.com/[Beyond Compare]
+* https://www.perfectxl.com/excel-tools/perfectxl-compare/[PerfectXL Compare]
+* https://www.synkronizer.com/[Synkronizer]
+* https://xlcompare.com/[xlCompare]
+
+== License
+
+{uri-license}[MIT]
