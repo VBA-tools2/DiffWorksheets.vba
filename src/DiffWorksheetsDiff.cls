@@ -48,7 +48,12 @@ Public Sub DiffWorksheets( _
             NoOfRows, _
             NoOfColumns
     
-    DiffWorksheet.Activate
+    With DiffWorksheet
+        .Activate
+        .UsedRange.Select
+    End With
+    
+    ActiveWindow.Zoom = 70
     
 End Sub
 
